@@ -45,6 +45,11 @@ final class CryptoListViewController: UIViewController {
     }
     
     private func setupView() {
+        self.view.addSubview(self.tableView)
+        
+        self.tableView.snp.makeConstraints { make in
+            make.top.leading.bottom.trailing.equalToSuperview()
+        }
     }
 }
 

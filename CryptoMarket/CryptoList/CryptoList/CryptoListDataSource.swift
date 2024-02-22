@@ -26,7 +26,7 @@ final class CryptoListDataSource: NSObject, CryptoListDataSourceProtocol {
     
     private lazy var fetchController: NSFetchedResultsController<CryptoCoinEntity> = {
         let fetchRequest = NSFetchRequest<CryptoCoinEntity>(entityName: "CryptoCoinEntity")
-        fetchRequest.fetchBatchSize = 20
+        fetchRequest.fetchBatchSize = 10
         
         let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.mainManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         

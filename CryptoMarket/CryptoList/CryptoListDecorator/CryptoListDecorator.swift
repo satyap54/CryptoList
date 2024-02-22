@@ -11,6 +11,7 @@ protocol CryptoListDecoratorProtocol {
     func getPredicate() -> NSPredicate
     func addFilterModel(filterModel: FilterModel)
     func removeFilterModel(filterModel: FilterModel)
+    func clear()
 }
 
 final class CryptoListDecorator: CryptoListDecoratorProtocol {
@@ -47,5 +48,7 @@ final class CryptoListDecorator: CryptoListDecoratorProtocol {
         self.filterModels.removeAll(where: { $0 == filterModel })
     }
     
-   
+    func clear() {
+        self.filterModels = []
+    }
 }

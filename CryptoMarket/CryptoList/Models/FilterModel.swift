@@ -17,6 +17,6 @@ struct FilterModel: Equatable {
          compositionOperation: FilterCompositionOperation) {
         self.filterTags = filterTags
         self.title = title
-        self.compositionOperation
+        self.compositionOperation = compositionOperation
     }
 }

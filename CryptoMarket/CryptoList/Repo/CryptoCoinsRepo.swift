@@ -10,7 +10,7 @@ import Foundation
 protocol CryptoCoinsRepoProtocol {
     var coreDataManager: CoreDataManagerProtocol { get }
     
-    func save(cryptoCoinData: CrytoCoinModel)
+    func save(cryptoCoinDatas: [CrytoCoinModel])
 }
 
 final class CryptoCoinsRepo: CryptoCoinsRepoProtocol {
@@ -22,13 +22,15 @@ final class CryptoCoinsRepo: CryptoCoinsRepoProtocol {
         self.coreDataManager = coreDataManager
     }
     
-    func save(cryptoCoinData: CrytoCoinModel) {
-        let crytoCoinEntity = CryptoCoinEntity(context: self.moc)
-        crytoCoinEntity.isActive = cryptoCoinData.isActive
-        crytoCoinEntity.isNew = cryptoCoinData.isNew
-        crytoCoinEntity.name = cryptoCoinData.name
-        crytoCoinEntity.symbol = cryptoCoinData.symbol
-        crytoCoinEntity.typeValue = cryptoCoinData.type.rawValue
+    func save(cryptoCoinDatas: [CrytoCoinModel]) {
+        _ = cryptoCoinDatas.map { cryptoCoinData in
+            let crytoCoinEntity = CryptoCoinEntity(context: self.moc)
+            crytoCoinEntity.isActive = cryptoCoinData.isActive
+            crytoCoinEntity.isNew = cryptoCoinData.isNew
+            crytoCoinEntity.name = cryptoCoinData.name
+            crytoCoinEntity.symbol = cryptoCoinData.symbol
+            crytoCoinEntity.typeValue = cryptoCoinData.type.rawValue
+        }
         
         self.coreDataManager.saveChangesMadeinMainMoc()
     }

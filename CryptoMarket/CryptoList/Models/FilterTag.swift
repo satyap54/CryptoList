@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FilterTag {
+struct FilterTag: Equatable {
     let lhs: String
     let rhs: String
 }

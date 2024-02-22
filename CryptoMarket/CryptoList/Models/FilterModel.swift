@@ -7,13 +7,16 @@
 
 import Foundation
 
-struct FilterModel {
+struct FilterModel: Equatable {
     let filterTags: [FilterTag]
     let title: String
+    let compositionOperation: FilterCompositionOperation
     
     init(filterTags: [FilterTag],
-         title: String) {
+         title: String,
+         compositionOperation: FilterCompositionOperation) {
         self.filterTags = filterTags
         self.title = title
+        self.compositionOperation
     }
 }

@@ -14,6 +14,8 @@ protocol CryptoListDataSourceDelegateProtocol {
 }
 
 protocol CryptoListDataSourceProtocol: AnyObject {
+    var delegate: CryptoListDataSourceDelegateProtocol? { get set }
+    
     func getCryptoCoinModel(at index: IndexPath) -> CrytoCoinModel
     func updateDataSource(with decorator: CryptoListDecoratorProtocol)
     func getNumberOfObjects() -> Int

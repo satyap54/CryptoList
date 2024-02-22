@@ -21,24 +21,20 @@ final class CryptoListDecorator: CryptoListDecoratorProtocol {
     }
     
     func getPredicate() -> NSPredicate {
-        var andPredicates: [NSPredicate] = []
-        var orPredicates: [NSPredicate] = []
+        var resultantPredicate: NSCompoundPredicate = NSCompoundPredicate()
         
         for filterModel in filterModels {
-            let unitPredicates = filterModel.filterTags.map {
-                return NSPredicate(format: "@lhs == @rhs", $0.lhs, $0.rhs)
+            var resultantUnitPredicate = NSCompoundPredicate()
+            filterModel.filterTags.forEach {
+                let unitPredicate = NSPredicate(format: "@lhs == @rhs", $0.lhs, $0.rhs)
+                resultantUnitPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [resultantUnitPredicate, unitPredicate])
             }
-            let compoundPredicateOfThisFilter = NSCompoundPredicate(andPredicateWithSubpredicates: unitPredicates)
             if filterModel.compositionOperation == .or {
-                orPredicates.append(compoundPredicateOfThisFilter)
+                resultantPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [resultantPredicate, resultantUnitPredicate])
             } else {
-                andPredicates.append(compoundPredicateOfThisFilter)
+                resultantPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [resultantPredicate, resultantUnitPredicate])
             }
         }
-        
-        let orPredicatesCombined = NSCompoundPredicate(orPredicateWithSubpredicates: orPredicates)
-        andPredicates.append(orPredicatesCombined)
-        let resultantPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: andPredicates)
         
         return resultantPredicate
     }

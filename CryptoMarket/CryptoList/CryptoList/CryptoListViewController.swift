@@ -19,6 +19,7 @@ final class CryptoListViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = true
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(CryptoListTableViewCell.self, forCellReuseIdentifier: CryptoListTableViewCell.reuseIdentifier)
         return tableView
     }()
     
@@ -63,8 +64,12 @@ extension CryptoListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CryptoListTableViewCell.reuseIdentifier, for: indexPath) as? CryptoListTableViewCell else {
+            return UITableViewCell()
+        }
+        let cryptoCoinModel = self.viewModel.dataSource.getCryptoCoinModel(at: indexPath)
+        cell.configure(with: cryptoCoinModel)
+        return cell
     }
 }
 

@@ -51,7 +51,7 @@ final class CryptoListDataSource: NSObject, CryptoListDataSourceProtocol {
     
     func updateDataSource(with decorator: CryptoListDecoratorProtocol) {
         self.fetchController.fetchRequest.predicate = decorator.getPredicate()
-        try? self.fetchController.performFetch()
+        self.performFetch()
     }
     
     func getNumberOfObjects() -> Int {

@@ -65,23 +65,24 @@ final class CryptoListTableViewCell: UITableViewCell {
         }
         
         self.subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(8.0)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(2.0)
             make.leading.trailing.equalTo(self.titleLabel)
-            make.bottom.equalToSuperview().offset(8.0)
+            make.bottom.equalToSuperview().offset(-8.0)
         }
         
         self.iconImageView.snp.makeConstraints { make in
             make.centerY.equalTo(titleSubtitlePlaceHolderView)
-            make.height.width.equalTo(32.0)
+            make.height.width.equalTo(36.0)
             make.leading.greaterThanOrEqualTo(titleSubtitlePlaceHolderView.snp.trailing).offset(8.0)
-            make.trailing.equalToSuperview().offset(-16.0)
+            make.trailing.equalToSuperview().offset(-32.0)
         }
         
+        /*
         self.tagImageView.snp.makeConstraints { make in
             make.leading.equalTo(self.iconImageView.snp.trailing)
             make.top.trailing.equalToSuperview()
             make.bottom.equalTo(self.iconImageView.snp.top)
-        }
+        }*/
     }
     
     func configure(with cryptoCoinModel: CrytoCoinModel) {

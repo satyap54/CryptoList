@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import CoreData
 
 protocol CryptoCoinsRepoProtocol {
     var coreDataManager: CoreDataManagerProtocol { get }
     
+    func checkIfCached() -> Bool
     func save(cryptoCoinDatas: [CrytoCoinModel])
 }
 
@@ -20,6 +22,17 @@ final class CryptoCoinsRepo: CryptoCoinsRepoProtocol {
     
     init(coreDataManager: CoreDataManagerProtocol) {
         self.coreDataManager = coreDataManager
+    }
+    
+    func checkIfCached() -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CryptoCoinEntity")
+        do {
+            let count = try coreDataManager.mainManagedObjectContext.count(for: fetchRequest)
+            return count != 0
+        } catch {
+            print("Error checking cache: \(error)")
+            return false
+        }
     }
     
     func save(cryptoCoinDatas: [CrytoCoinModel]) {

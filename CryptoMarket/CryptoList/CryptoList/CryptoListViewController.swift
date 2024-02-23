@@ -5,6 +5,7 @@
 //  Created by Satyabrat Panda on 23/02/24.
 //
 
+import CommonCodeUtility
 import Foundation
 import UIKit
 
@@ -47,6 +48,7 @@ final class CryptoListViewController: UIViewController {
     
     private func setupView() {
         self.view.addSubview(self.tableView)
+        self.view.backgroundColor = ColorLib.white[0]
         
         self.tableView.snp.makeConstraints { make in
             make.top.leading.bottom.trailing.equalToSuperview()
@@ -80,5 +82,9 @@ extension CryptoListViewController: CryptoListDataSourceDelegateProtocol {
     
     func willChange() {
         self.tableView.endUpdates()
+    }
+    
+    func refreshedData() {
+        self.tableView.reloadData()
     }
 }

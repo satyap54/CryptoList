@@ -21,7 +21,17 @@ final class CryptoListSyncController: CryptoListSyncControllerProtocol {
         self.service = service
     }
     
+    private func checkIfCryptpListEntriesExist() -> Bool {
+        return self.repo.checkIfCached()
+    }
+    
     func sync(completion: @escaping () -> Void) {
+        let isCached = self.checkIfCryptpListEntriesExist()
+        if isCached {
+            completion()
+            return
+        }
+        
         self.service.getCryptoCoinsInfo { [weak self] cryptoCoinModels in
             self?.repo.save(cryptoCoinDatas: cryptoCoinModels)
             completion()

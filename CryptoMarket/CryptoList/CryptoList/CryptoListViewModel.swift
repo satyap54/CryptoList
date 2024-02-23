@@ -16,6 +16,7 @@ final class CryptoListViewModel {
          syncController: CryptoListSyncControllerProtocol) {
         self.dataSource = dataSource
         self.syncController = syncController
+        self.dataSource.performFetch()
     }
     
     func setDataSourceDelegate(delegate: CryptoListDataSourceDelegateProtocol) {
@@ -23,6 +24,8 @@ final class CryptoListViewModel {
     }
     
     func startSync(completion: @escaping () -> Void) {
-        self.syncController.sync(completion: completion)
+        self.syncController.sync { [weak self] in
+            self?.dataSource.performFetch()
+        }
     }
 }

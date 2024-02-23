@@ -67,7 +67,7 @@ final class CryptoCoinFilterModelRegistry {
             .init(lhs: "isNew", rhs: "\(NSNumber(value: true))")
         ]
         return FilterModel(filterTags: filterTags,
-                           title: "Only Coins",
+                           title: "New Coins",
                            compositionOperation: .or)
     }
 }

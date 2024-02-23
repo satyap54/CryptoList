@@ -58,7 +58,7 @@ final class CoreDataManager: CoreDataManagerProtocol {
     }()
     
     private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
-        let mainManagedObjectContext = self.persistentContainer.viewContext
+        let mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainManagedObjectContext.parent = self.privateManagedObjectContext
         return mainManagedObjectContext
     }()

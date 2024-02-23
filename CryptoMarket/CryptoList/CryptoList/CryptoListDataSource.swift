@@ -11,6 +11,7 @@ import CoreData
 protocol CryptoListDataSourceDelegateProtocol {
     func willChange()
     func didChange()
+    func refreshedData()
 }
 
 protocol CryptoListDataSourceProtocol: AnyObject {
@@ -19,6 +20,7 @@ protocol CryptoListDataSourceProtocol: AnyObject {
     func getCryptoCoinModel(at index: IndexPath) -> CrytoCoinModel
     func updateDataSource(with decorator: CryptoListDecoratorProtocol)
     func getNumberOfObjects() -> Int
+    func performFetch()
 }
 
 final class CryptoListDataSource: NSObject, CryptoListDataSourceProtocol {
@@ -29,6 +31,8 @@ final class CryptoListDataSource: NSObject, CryptoListDataSourceProtocol {
     private lazy var fetchController: NSFetchedResultsController<CryptoCoinEntity> = {
         let fetchRequest = NSFetchRequest<CryptoCoinEntity>(entityName: "CryptoCoinEntity")
         fetchRequest.fetchBatchSize = 10
+        let sortByName = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortByName]
         
         let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.mainManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -51,7 +55,16 @@ final class CryptoListDataSource: NSObject, CryptoListDataSourceProtocol {
     }
     
     func getNumberOfObjects() -> Int {
-        return self.fetchController.sections![0].numberOfObjects
+        return self.fetchController.sections?[0].numberOfObjects ?? 0
+    }
+    
+    func performFetch() {
+        do {
+            try self.fetchController.performFetch()
+            self.delegate?.refreshedData()
+        } catch {
+            print("Error fetching data: \(error)")
+        }
     }
 }
 

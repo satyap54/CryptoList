@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         
         filterView.snp.makeConstraints { make in
             make.top.equalTo(listView.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
+            make.leading.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 }

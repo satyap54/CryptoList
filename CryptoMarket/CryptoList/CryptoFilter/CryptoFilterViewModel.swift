@@ -12,7 +12,7 @@ final class CryptoFilterViewModel {
     private let filterRegistry: CryptoCoinFilterModelRegistry
     var cryptoListDecorator: CryptoListDecoratorProtocol?
     
-    private var isFilterModelSelected: [Bool]
+    private(set) var isFilterModelSelected: [Bool]
     
     init(dataSource: CryptoListDataSourceProtocol, filterRegistry: CryptoCoinFilterModelRegistry) {
         self.dataSource = dataSource

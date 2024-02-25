@@ -5,6 +5,7 @@
 //  Created by Satyabrat Panda on 21/02/24.
 //
 
+import CommonCodeUtility
 import UIKit
 import SnapKit
 
@@ -36,6 +37,7 @@ class ViewController: UIViewController {
     init(listVC: UIViewController,
          filterVC: UIViewController) {
         super.init(nibName: nil, bundle: nil)
+        self.title = "COINS"
         self.add(listVC)
         self.add(filterVC)
         self.setupView(listVC: listVC, filterVC: filterVC)

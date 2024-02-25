@@ -9,7 +9,8 @@ import CommonCodeUtility
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    private var appCoordinator: AppCoordinator?
+    
     var window: UIWindow?
 
 
@@ -19,27 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        
-        let dataSource = CryptoListDataSource(coreDataManager: CoreDataManager.shared)
-        let filterCoordinator = CryptoFilterCoordinator(dataSource: dataSource)
-        let listCoordinator = CryptoListCoordinator(dataSource: dataSource)
-        
-        let listVC = listCoordinator.createViewController()
-        let filtetVC = filterCoordinator.getViewController()
-        
-        let vc = ViewController(listVC: listVC, filterVC: filtetVC)
-        
-        let navigationVC = UINavigationController(rootViewController: vc)
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.titleTextAttributes = [
-            .foregroundColor: ColorLib.white[4],
-            .font: FontsLib.mediumFontWithSize(FontsLib.titleFontSize)
-        ]
-        navigationBarAppearance.backgroundColor = ColorLib.info[3]
-        
-        navigationVC.navigationBar.standardAppearance = navigationBarAppearance
-        navigationVC.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        
+        self.appCoordinator = AppCoordinator()
+        let navigationVC = self.appCoordinator?.start()
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()
     }

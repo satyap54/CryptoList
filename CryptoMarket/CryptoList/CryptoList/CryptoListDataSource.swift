@@ -50,7 +50,8 @@ final class CryptoListDataSource: NSObject, CryptoListDataSourceProtocol {
     }
     
     func updateDataSource(with decorator: CryptoListDecoratorProtocol) {
-        self.fetchController.fetchRequest.predicate = decorator.getPredicate()
+        let predicate =  decorator.getPredicate()
+        self.fetchController.fetchRequest.predicate = predicate
         self.performFetch()
     }
     

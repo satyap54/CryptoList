@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CryptoListDecoratorProtocol {
-    func getPredicate() -> NSPredicate
+    func getPredicate() -> NSPredicate?
     func addFilterModel(filterModel: FilterModel)
     func removeFilterModel(filterModel: FilterModel)
     func clear()
@@ -21,19 +21,23 @@ final class CryptoListDecorator: CryptoListDecoratorProtocol {
         self.filterModels = []
     }
     
-    func getPredicate() -> NSPredicate {
-        var resultantPredicate: NSCompoundPredicate = NSCompoundPredicate()
+    func getPredicate() -> NSPredicate? {
+        if filterModels.isEmpty {
+            return nil
+        }
+        var resultantPredicate: NSPredicate? = nil
         
         for filterModel in filterModels {
             var resultantUnitPredicate = NSCompoundPredicate()
-            filterModel.filterTags.forEach {
-                let unitPredicate = NSPredicate(format: "@lhs == @rhs", $0.lhs, $0.rhs)
-                resultantUnitPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [resultantUnitPredicate, unitPredicate])
+            let resultantPredicates = filterModel.filterTags.map {
+                return NSPredicate(format: "%K == %@", $0.lhs as NSString, $0.rhs as NSString)
             }
+            let resultantCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: resultantPredicates)
+            let subPredicates: [NSPredicate] = [resultantPredicate, resultantCompoundPredicate].compactMap { $0 }
             if filterModel.compositionOperation == .or {
-                resultantPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [resultantPredicate, resultantUnitPredicate])
+                resultantPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: subPredicates)
             } else {
-                resultantPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [resultantPredicate, resultantUnitPredicate])
+                resultantPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: subPredicates)
             }
         }
         

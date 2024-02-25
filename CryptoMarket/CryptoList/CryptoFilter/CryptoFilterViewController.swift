@@ -23,7 +23,6 @@ final class CryptoFilterViewController: UIViewController {
     init(viewModel: CryptoFilterViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.setupView()
     }
     
     private lazy var button: UIButton = {
@@ -37,9 +36,6 @@ final class CryptoFilterViewController: UIViewController {
         self.view.addSubview(button)
         self.button.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
-            self?.viewModel.toggleFilterAt(idx: 2)
         }
     }
     

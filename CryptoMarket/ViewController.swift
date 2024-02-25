@@ -53,11 +53,8 @@ class ViewController: UIViewController {
             make.top.leading.trailing.equalToSuperview()
         }
         
-        filterView.backgroundColor = .cyan
-        listView.backgroundColor = .darkGray
         filterView.snp.makeConstraints { make in
             make.top.equalTo(listView.snp.bottom)
-            make.height.equalTo(50.0)
             make.leading.bottom.trailing.equalToSuperview()
         }
     }

@@ -47,6 +47,7 @@ final class CryptoListTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
+        self.selectionStyle = .none
         let titleSubtitlePlaceHolderView = UIView()
         titleSubtitlePlaceHolderView.addSubview(self.titleLabel)
         titleSubtitlePlaceHolderView.addSubview(self.subTitleLabel)

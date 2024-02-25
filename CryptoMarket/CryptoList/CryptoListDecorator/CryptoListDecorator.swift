@@ -28,16 +28,15 @@ final class CryptoListDecorator: CryptoListDecoratorProtocol {
         var resultantPredicate: NSPredicate? = nil
         
         for filterModel in filterModels {
-            var resultantUnitPredicate = NSCompoundPredicate()
-            let resultantPredicates = filterModel.filterTags.map {
+            let resultantUnitPredicatesOfCurrentFilterModel = filterModel.filterTags.map {
                 return NSPredicate(format: "%K == %@", $0.lhs as NSString, $0.rhs as NSString)
             }
-            let resultantCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: resultantPredicates)
-            let subPredicates: [NSPredicate] = [resultantPredicate, resultantCompoundPredicate].compactMap { $0 }
+            let resultantCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: resultantUnitPredicatesOfCurrentFilterModel)
+            let subPredicatesSoFar: [NSPredicate] = [resultantPredicate, resultantCompoundPredicate].compactMap { $0 }
             if filterModel.compositionOperation == .or {
-                resultantPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: subPredicates)
+                resultantPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: subPredicatesSoFar)
             } else {
-                resultantPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: subPredicates)
+                resultantPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: subPredicatesSoFar)
             }
         }
         

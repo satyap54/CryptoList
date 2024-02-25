@@ -11,7 +11,7 @@ import UIKit
 
 
 final class CryptoListTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "TableViewCell"
+    static let reuseIdentifier = "CryptoListTableViewCell"
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()

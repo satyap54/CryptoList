@@ -39,7 +39,7 @@ final class CryptoCoinFilterModelRegistry {
             .init(lhs: "isActive", rhs: "\(NSNumber(value: true))")
         ]
         return FilterModel(filterTags: filterTags,
-                           title: "Inactive Coins",
+                           title: "Active Coins",
                            compositionOperation: .or)
     }
     

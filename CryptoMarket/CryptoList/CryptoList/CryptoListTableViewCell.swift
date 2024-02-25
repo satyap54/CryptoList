@@ -76,17 +76,10 @@ final class CryptoListTableViewCell: UITableViewCell {
             make.leading.greaterThanOrEqualTo(titleSubtitlePlaceHolderView.snp.trailing).offset(8.0)
             make.trailing.equalToSuperview().offset(-32.0)
         }
-        
-        /*
-        self.tagImageView.snp.makeConstraints { make in
-            make.leading.equalTo(self.iconImageView.snp.trailing)
-            make.top.trailing.equalToSuperview()
-            make.bottom.equalTo(self.iconImageView.snp.top)
-        }*/
     }
     
     func configure(with cryptoCoinModel: CrytoCoinModel) {
-        self.titleLabel.text = cryptoCoinModel.name
+        self.titleLabel.text = (cryptoCoinModel.name)
         self.subTitleLabel.text = cryptoCoinModel.symbol
         self.tagImageView.isHidden = !cryptoCoinModel.isActive
         

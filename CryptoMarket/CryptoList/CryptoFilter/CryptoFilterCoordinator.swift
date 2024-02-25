@@ -6,3 +6,21 @@
 //
 
 import Foundation
+import UIKit
+
+final class CryptoFilterCoordinator {
+    private let dataSource: CryptoListDataSourceProtocol
+    
+    init(dataSource: CryptoListDataSourceProtocol) {
+        self.dataSource = dataSource
+    }
+    
+    func getViewController() -> UIViewController {
+        let listDecorator = CryptoListDecorator()
+        let viewModel = CryptoFilterViewModel(dataSource: dataSource,
+                                              filterRegistry: CryptoCoinFilterModelRegistry())
+        viewModel.cryptoListDecorator = listDecorator
+        let viewController = CryptoFilterViewController(viewModel: viewModel)
+        return viewController
+    }
+}

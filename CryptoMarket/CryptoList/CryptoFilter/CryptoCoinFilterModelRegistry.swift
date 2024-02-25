@@ -25,7 +25,7 @@ final class CryptoCoinFilterModelRegistry {
     
     private func createInactiveCoinsFilterModel() -> FilterModel {
         let filterTags: [FilterTag] = [
-            .init(lhs: "type", rhs: CryptoCurrencyType.coin.rawValue),
+            .init(lhs: "typeValue", rhs: CryptoCurrencyType.coin.rawValue),
             .init(lhs: "isActive", rhs: "\(NSNumber(value: false))")
         ]
         return FilterModel(filterTags: filterTags,
@@ -35,7 +35,7 @@ final class CryptoCoinFilterModelRegistry {
     
     private func createActiveCoinsFilterModel() -> FilterModel {
         let filterTags: [FilterTag] = [
-            .init(lhs: "type", rhs: CryptoCurrencyType.coin.rawValue),
+            .init(lhs: "typeValue", rhs: CryptoCurrencyType.coin.rawValue),
             .init(lhs: "isActive", rhs: "\(NSNumber(value: true))")
         ]
         return FilterModel(filterTags: filterTags,
@@ -45,7 +45,7 @@ final class CryptoCoinFilterModelRegistry {
     
     private func createOnlyTokenFilterModel() -> FilterModel {
         let filterTags: [FilterTag] = [
-            .init(lhs: "type", rhs: CryptoCurrencyType.token.rawValue)
+            .init(lhs: "typeValue", rhs: CryptoCurrencyType.token.rawValue)
         ]
         return FilterModel(filterTags: filterTags,
                            title: "Only Tokens",
@@ -54,7 +54,7 @@ final class CryptoCoinFilterModelRegistry {
     
     private func createOnlyCoinsFilterModel() -> FilterModel {
         let filterTags: [FilterTag] = [
-            .init(lhs: "type", rhs: CryptoCurrencyType.coin.rawValue)
+            .init(lhs: "typeValue", rhs: CryptoCurrencyType.coin.rawValue)
         ]
         return FilterModel(filterTags: filterTags,
                            title: "Only Coins",
@@ -63,7 +63,7 @@ final class CryptoCoinFilterModelRegistry {
     
     private func createNewCoinsFilterModel() -> FilterModel {
         let filterTags: [FilterTag] = [
-            .init(lhs: "type", rhs: CryptoCurrencyType.coin.rawValue),
+            .init(lhs: "typeValue", rhs: CryptoCurrencyType.coin.rawValue),
             .init(lhs: "isNew", rhs: "\(NSNumber(value: true))")
         ]
         return FilterModel(filterTags: filterTags,

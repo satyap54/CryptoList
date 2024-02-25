@@ -10,7 +10,7 @@ import Foundation
 final class CryptoFilterViewModel {
     private let dataSource: CryptoListDataSourceProtocol
     private let filterRegistry: CryptoCoinFilterModelRegistry
-    private var cryptoListDecorator: CryptoListDecoratorProtocol?
+    var cryptoListDecorator: CryptoListDecoratorProtocol?
     
     private var isFilterModelSelected: [Bool]
     
@@ -34,7 +34,6 @@ final class CryptoFilterViewModel {
             cryptoListDecorator.removeFilterModel(filterModel: filterModelAtGivenIdx)
         }
         
-        let predicate = cryptoListDecorator.getPredicate()
         self.dataSource.updateDataSource(with: cryptoListDecorator)
     }
     

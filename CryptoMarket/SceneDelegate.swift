@@ -19,7 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let vc = CryptoListCoordinator(dataSource: CryptoListDataSource(coreDataManager: CoreDataManager.shared)).createViewController()
+        let dataSource = CryptoListDataSource(coreDataManager: CoreDataManager.shared)
+        let filterCoordinator = CryptoFilterCoordinator(dataSource: dataSource)
+        let listCoordinator = CryptoListCoordinator(dataSource: dataSource)
+        
+        let listVC = listCoordinator.createViewController()
+        let filtetVC = filterCoordinator.getViewController()
+        
+        let vc = ViewController(listVC: listVC, filterVC: filtetVC)
         
         let navigationVC = UINavigationController(rootViewController: vc)
         window?.rootViewController = navigationVC

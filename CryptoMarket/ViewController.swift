@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIViewController {
     func add(_ child: UIViewController) {
@@ -28,12 +29,37 @@ extension UIViewController {
 }
 
 class ViewController: UIViewController {
-    let service = LocalCryptoCoinsService()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-
+    
+    init(listVC: UIViewController,
+         filterVC: UIViewController) {
+        super.init(nibName: nil, bundle: nil)
+        self.add(listVC)
+        self.add(filterVC)
+        self.setupView(listVC: listVC, filterVC: filterVC)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView(listVC: UIViewController, filterVC: UIViewController) {
+        let listView = listVC.view!
+        let filterView = filterVC.view!
+        
+        listView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        filterView.backgroundColor = .cyan
+        listView.backgroundColor = .darkGray
+        filterView.snp.makeConstraints { make in
+            make.top.equalTo(listView.snp.bottom)
+            make.height.equalTo(50.0)
+            make.leading.bottom.trailing.equalToSuperview()
+        }
+    }
 }
 

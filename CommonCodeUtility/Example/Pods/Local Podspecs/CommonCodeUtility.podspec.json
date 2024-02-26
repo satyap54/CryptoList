@@ -1,0 +1,22 @@
+{
+  "name": "CommonCodeUtility",
+  "version": "0.1.0",
+  "summary": "A short description of CommonCodeUtility.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Satyabrat Panda/CommonCodeUtility",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Satyabrat Panda": "satyabrat.panda@phonepe.com"
+  },
+  "source": {
+    "git": "https://github.com/Satyabrat Panda/CommonCodeUtility.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "CommonCodeUtility/Classes/**/*"
+}

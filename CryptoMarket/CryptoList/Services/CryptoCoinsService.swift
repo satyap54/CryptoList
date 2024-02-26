@@ -28,12 +28,13 @@ final class CryptoCoinsService: CryptoCoinsServiceProtocol {
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             guard let response = response as? HTTPURLResponse,
                   response.statusCode == 200,
-                  let data else {
+                  let data,
+                  let decodedResponse = try? JSONDecoder().decode(CrytoCoinResponseList.self, from: data) else {
                 completion([])
                 return
             }
             
-            completion([])
+            completion(decodedResponse.cryptocurrencies)
         }
         dataTask.resume()
     }
